@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux'
 import albums from './albums.js'
-import selectedAlbum from './selectedAlbum.js'
+import photos from './photos.js'
+import selectedAlbumId from './selectedAlbumId.js'
 
 const photoApp = combineReducers({
     albums,
-    selectedAlbum
+    photos,
+    selectedAlbumId
 })
 
 export default photoApp
