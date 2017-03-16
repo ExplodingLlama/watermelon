@@ -11,7 +11,30 @@ const photo = (state = {}, action) => {
 }
 
 const photos = (state = {}, action) => {
-    
+    switch (action.type) {
+        case 'ADD_PHOTO':
+            var newPhoto = photo(undefined, action)
+            var newObj = {}
+            newObj[newPhoto.id] = newPhoto
+
+            var newAllIds = [...state.allIds, newPhoto.id]
+            var newById = {...state.byId,newObj}
+
+            return {
+                allIds: newAllIds,
+                byId: newById
+            }
+        case 'DELETE_PHOTO':
+            var newAllIds = state.allIds.filter( id => id != action.photoId )
+            var newById = state.byId.filter( pht => pht.id != action.photoId )
+
+            return {
+                allIds: newAllIds,
+                byId: newById
+            }
+        default:
+            return state
+    }
 }
 
 export default photos
