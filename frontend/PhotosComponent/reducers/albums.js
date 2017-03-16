@@ -32,17 +32,66 @@ const album = (state = {}, action) => {
                     name: action.name
                 }
             }
+        default:
+            return state
     }
 }
 
 const albums = (state = {}, action) => {
     switch (action.type) {
         case 'ADD_PHOTO':
+        case 'DELETE_PHOTO':
+        case 'RENAME_ALBUM':
             if(state.allIds.indexOf(action.albumId) == -1) {
                 return state
             }
 
-            album(state.byId
+            var oldAlbum = state.byId[action.albumId]
+            var newAlbum = album(oldAlbum, action)
+            var newObj = {}
+            newObj[newAlbum.id] = newAlbum
+
+            return {
+                ...state,
+                {
+                    byId: {
+                        ...state.byId, newObj
+                    }
+                }
+            }
+
+        case 'CREATE_ALBUM':
+            if(state.allIds.indexOf(action.albumId) == -1) {
+                return state
+            }
+
+            var newAlbum = album(undefined, action)
+            var newObj = {}
+            newObj[newAlbum.id] = newAlbum
+
+            return {
+                ...state,
+                {
+                    allIds: [
+                        ...state.allIds, newAlbum.id
+                    ],
+                    byId: {
+                        ...state.byId, newObj
+                    }
+                }
+            }
+        case 'DELETE_ALBUM':
+            if(state.allIds.indexOf(action.albumId) == -1) {
+                return state
+            }
+
+            var newAllIds = state.allIds.filter(id => id!=action.albumId)
+            var newById = state.byId.filter(alb => alb.id!=action.albumId)
+
+            return {
+                allIds: newAllIds,
+                byIds: newById
+            }
     }
 }
 
