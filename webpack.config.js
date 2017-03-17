@@ -9,14 +9,23 @@ module.exports = {
         loaders: [
             {
                 test: /\.css$/,
-                loader: "style!css"
+                loader: 'style-loader'
+            },
+            {
+                test: /\.css$/,
+                loader: 'css-loader',
+                query: {
+                    modules: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]'
+                }
             },
             {
                 test: /.jsx?$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react'],
+                    plugins: ['transform-object-rest-spread']
                 }
             }
         ]

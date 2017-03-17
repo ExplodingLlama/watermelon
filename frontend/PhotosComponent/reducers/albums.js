@@ -8,29 +8,23 @@ const album = (state = {}, action) => {
             }
         case 'ADD_PHOTO':
             if(action.albumId != state.id) {
-                return state
+                return state;
             }
             return {
                 ...state,
-                {
-                    photos: [
-                        ...state.photos, action.id
-                    ]
-                }
+                photos: [
+                    ...state.photos, action.id
+                ]
             }
         case 'DELETE_PHOTO':
             return {
                 ...state,
-                {
-                    photos: state.photos.filter(id => id!=action.photoId)
-                }
+                photos: state.photos.filter(id => id!=action.photoId)
             }
         case 'RENAME_ALBUM':
             return {
                 ...state,
-                {
-                    name: action.name
-                }
+                name: action.name
             }
         default:
             return state
@@ -53,33 +47,24 @@ const albums = (state = {}, action) => {
 
             return {
                 ...state,
-                {
-                    byId: {
+                byId: {
                         ...state.byId, newObj
-                    }
                 }
             }
 
         case 'CREATE_ALBUM':
-            if(state.allIds.indexOf(action.albumId) == -1) {
-                return state
-            }
-
             var newAlbum = album(undefined, action)
             var newObj = {}
             newObj[newAlbum.id] = newAlbum
 
-            return {
-                ...state,
-                {
-                    allIds: [
-                        ...state.allIds, newAlbum.id
-                    ],
-                    byId: {
-                        ...state.byId, newObj
-                    }
+            return Object.assign({}, state, {
+                allIds: [
+                    ...state.allIds, newAlbum.id
+                ],
+                byId: {
+                    ...state.byId, newObj
                 }
-            }
+            })
         case 'DELETE_ALBUM':
             if(state.allIds.indexOf(action.albumId) == -1) {
                 return state

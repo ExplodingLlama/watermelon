@@ -1,12 +1,13 @@
-const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) =>
-    s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h)
+const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) => {
+    s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
+  }
 
-export const addPhoto = (photoLink) => {
+export const addPhoto = (photoLink, albumId) => {
     return {
         type: 'ADD_PHOTO',
         id: Object(),
-        albumId,
-        photoLink
+        photoLink,
+        albumId
     }
 }
 
@@ -17,7 +18,7 @@ export const createAlbum = () => {
     }
 }
 
-export const renameAlbum = () => {
+export const renameAlbum = (albumId, name) => {
     return {
         type: 'RENAME_ALBUM',
         albumId,
@@ -25,17 +26,18 @@ export const renameAlbum = () => {
     }
 }
 
-export const setSelectedAlbum = (albumId) => {
+export const selectAlbum = (albumId) => {
     return {
         type: 'SET_SELECTED_ALBUM',
         albumId
     }
 }
 
-export const deletePhoto = (photoId) => {
+export const deletePhoto = (photoId, albumId) => {
     return {
         type: 'DELETE_PHOTO',
-        photoId
+        photoId,
+        albumId
     }
 }
 

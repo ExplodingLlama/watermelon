@@ -1,13 +1,10 @@
 import React from 'react'
-import MainMode from '../containers/MainMode.js'
-import AlbumMode from '../containers/AlbumMode.js'
-import CreateAlbum from '../containers/CreateAlbum.jsx'
+import MainModeContainer from '../containers/MainModeContainer.js'
+import AlbumModeContainer from '../containers/AlbumModeContainer.js'
 
 const App = React.createClass({
     render() {
-        if(this.props.selectedAlbumId == ''){
-            return <MainMode />
-        else return <AlbumMode />
-        }
+        if(this.props.selectedAlbumId == '') return <MainModeContainer />
+        else return <AlbumModeContainer />
     }
 })
