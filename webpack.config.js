@@ -1,9 +1,16 @@
+const webpack = require('webpack');
+
 module.exports = {
     entry: "./frontend/index.jsx",
     output: {
         path: __dirname + "/public/build",
         filename: "app.js"
     },
+    plugins: [
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        })
+    ],
     devtool: 'source-map',
     module: {
         loaders: [

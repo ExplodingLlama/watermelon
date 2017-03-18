@@ -3,7 +3,7 @@ const album = (state = {}, action) => {
         case 'CREATE_ALBUM':
             return {
                 id: action.id,
-                name: untitled,
+                name: 'untitled',
                 photos: []
             }
         case 'ADD_PHOTO':
@@ -31,7 +31,7 @@ const album = (state = {}, action) => {
     }
 }
 
-const albums = (state = {}, action) => {
+const albums = (state = {allIds: [], byId: {}}, action) => {
     switch (action.type) {
         case 'ADD_PHOTO':
         case 'DELETE_PHOTO':
@@ -77,6 +77,8 @@ const albums = (state = {}, action) => {
                 allIds: newAllIds,
                 byIds: newById
             }
+        default:
+            return state
     }
 }
 

@@ -16,6 +16,7 @@ const AlbumMode = React.createClass({
     },
 
     render() {
+        if(!this.props.album) return <div></div>
         return(
           <div className={styles.photoalbum}>
               <div className={styles.header}>

@@ -7,6 +7,8 @@ const getCurrentAlbumData = (state) => {
 }
 
 const getCurrentPhotoData = (state) => {
+    if(!state.selectedAlbumId) return {}
+    
     var photoIds = state.albums.byId[state.selectedAlbumId].photos
     var photos = state.photos.byId.filter(pht => photoIds.indexOf(pht.id)>-1)
     return photos

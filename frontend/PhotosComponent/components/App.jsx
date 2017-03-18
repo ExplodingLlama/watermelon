@@ -8,3 +8,5 @@ const App = React.createClass({
         else return <AlbumModeContainer />
     }
 })
+
+export default App
