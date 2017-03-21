@@ -11,8 +11,8 @@ const AlbumMode = React.createClass({
         this.props.addPhoto(url, this.props.album.id)
     },
 
-    deleteLink(url) {
-        this.props.deletePhoto(url, this.props.album.id);
+    deleteLink(photoId) {
+        this.props.deletePhoto(photoId, this.props.album.id);
     },
 
     render() {
@@ -28,15 +28,15 @@ const AlbumMode = React.createClass({
                   })()}
               </div>
               <div className={styles.line} />
-              {(()=>{
+              {((()=>{
                   if(this.props.photos) {
                       return <div className={styles.photos}>
-                          {this.props.photos.map((link) => {
-                              return <div className={styles.item} key={link}>
-                                  <a href={link}><img src={link} className={styles.image}/></a>
+                          {this.props.photos.map((photo) => {
+                              return <div className={styles.item} key={photo.photoLink}>
+                                  <a href={photo.photoLink}><img src={photo.photoLink} className={styles.image}/></a>
                                   {(()=>{
                                       if(this.props.deletePhoto){
-                                          return <a href='#!' onClick={()=>{return this.deleteLink(link)}} className={styles.deletebutton}>
+                                          return <a href='#!' onClick={()=>{return this.deleteLink(photo.id)}} className={styles.deletebutton}>
                                               <span>delete_forever</span>
                                           </a>
                                       }
@@ -46,7 +46,7 @@ const AlbumMode = React.createClass({
                           })}
                       </div>
                   }
-              })()}
+              }).bind(this))()}
           </div>
         )
     }

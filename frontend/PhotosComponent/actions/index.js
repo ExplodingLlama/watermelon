@@ -1,11 +1,11 @@
 const ObjectId = (m = Math, d = Date, h = 16, s = s => m.floor(s).toString(h)) => {
-    s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
+    return s(d.now() / 1000) + ' '.repeat(h).replace(/./g, () => s(m.random() * h))
   }
 
 export const addPhoto = (photoLink, albumId) => {
     return {
         type: 'ADD_PHOTO',
-        id: Object(),
+        id: ObjectId(),
         photoLink,
         albumId
     }
@@ -14,7 +14,7 @@ export const addPhoto = (photoLink, albumId) => {
 export const createAlbum = () => {
     return {
         type: 'CREATE_ALBUM',
-        id: Object()
+        id: ObjectId()
     }
 }
 

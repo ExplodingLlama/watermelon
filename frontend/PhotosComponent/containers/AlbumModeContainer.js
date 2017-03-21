@@ -8,9 +8,16 @@ const getCurrentAlbumData = (state) => {
 
 const getCurrentPhotoData = (state) => {
     if(!state.selectedAlbumId) return {}
-    
-    var photoIds = state.albums.byId[state.selectedAlbumId].photos
-    var photos = state.photos.byId.filter(pht => photoIds.indexOf(pht.id)>-1)
+
+    var photoIds = state.albums.byId[state.selectedAlbumId].photos;
+    var photos = [];
+
+    for( let photo of Object.values(state.photos.byId) ) {
+        if(photoIds.indexOf(photo.id) > -1){
+            photos.push(photo);
+        }
+    }
+
     return photos
 }
 

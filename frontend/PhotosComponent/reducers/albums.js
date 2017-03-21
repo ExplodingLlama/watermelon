@@ -44,12 +44,11 @@ const albums = (state = {allIds: [], byId: {}}, action) => {
             var newAlbum = album(oldAlbum, action)
             var newObj = {}
             newObj[newAlbum.id] = newAlbum
+            var newById = Object.assign({}, state.byId, newObj)
 
             return {
-                ...state,
-                byId: {
-                        ...state.byId, newObj
-                }
+                allIds: state.allIds,
+                byId: newById
             }
 
         case 'CREATE_ALBUM':
@@ -61,17 +60,17 @@ const albums = (state = {allIds: [], byId: {}}, action) => {
                 allIds: [
                     ...state.allIds, newAlbum.id
                 ],
-                byId: {
-                    ...state.byId, newObj
-                }
+                byId: Object.assign({}, state.byId, newObj)
             })
         case 'DELETE_ALBUM':
             if(state.allIds.indexOf(action.albumId) == -1) {
                 return state
             }
 
+            var newById = {...state.byId}
+            newById[action.albumId] = undefined
+
             var newAllIds = state.allIds.filter(id => id!=action.albumId)
-            var newById = state.byId.filter(alb => alb.id!=action.albumId)
 
             return {
                 allIds: newAllIds,

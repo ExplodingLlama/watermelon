@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+import styles from './MainMode.css'
+
 const MainMode = React.createClass({
 
     get4Photos(album) {
@@ -13,18 +15,27 @@ const MainMode = React.createClass({
         }
     },
 
+    getAlbumArray(albums) {
+        var arr = [];
+        for ( let album of Object.values(albums.byId) ){
+            arr.push(album);
+        }
+        return arr;
+    },
+
     render() {
         //Show all albums and then show an add album button
         return <div className={styles.wrapper}>
             <div className={styles.header}>Photo Albums</div>
             <div className={styles.albumlist}>
                 {(()=>{
-                    if(!this.props.albums || this.props.albums.length===0) {
+                    if(!this.props.albums || !this.props.albums.allIds || this.props.albums.allIds.length===0) {
                         return;
                     }
                     else {
-                        return this.props.albums.map((album) => {
-                            return <div className={styles.albumcover}>
+                        var albumArray = this.getAlbumArray(this.props.albums);
+                        return albumArray.map( album => {
+                            return <div className={styles.albumcover} key={album.id}>
                                 <a href='#!' onClick={ () => this.props.selectAlbum(album.id) }>
                                     <div className={styles.albumname}>
                                         {album.name}
@@ -56,32 +67,12 @@ const MainMode = React.createClass({
                     }
                 })()}
                 <div className={styles.albumcover}>
-                    <a onClick={this.props.createAlbum} className={styles.createalbum}>
+                    <a href='#!' onClick={this.props.createAlbum} className={styles.createalbum}>
                         <span>add</span>
                         Create new album</a>
                 </div>
             </div>
         </div>
-    },
-
-    render() {
-        return (
-            <div>
-                <div> list of Albums </div>
-                {this.props.albums.map((album) => {
-                    var photos = this.get4Photos(album)
-                    return (
-                        <a href='!#' onClick={() => this.props.selectAlbum(album.id)}>
-                            <div>{album.name}</div>
-                            {photos.map(photo => {
-                                return <img src={photo.photoLink} />
-                            })}
-                        </a>
-                    )
-                })}
-                <a href='!#' onClick={this.props.createAlbum}>Create a new album</a>
-            </div>
-        )
     }
 })
 

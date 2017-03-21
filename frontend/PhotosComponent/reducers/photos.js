@@ -3,14 +3,14 @@ const photo = (state = {}, action) => {
         case 'ADD_PHOTO':
             return {
                 id: action.id,
-                photoLink: action.id
+                photoLink: action.photoLink
             }
         default:
             return state
     }
 }
 
-const photos = (state = {}, action) => {
+const photos = (state = {byId: {}, allIds: []}, action) => {
     switch (action.type) {
         case 'ADD_PHOTO':
             var newPhoto = photo(undefined, action)
@@ -18,7 +18,7 @@ const photos = (state = {}, action) => {
             newObj[newPhoto.id] = newPhoto
 
             var newAllIds = [...state.allIds, newPhoto.id]
-            var newById = {...state.byId,newObj}
+            var newById = Object.assign({}, state.byId, newObj)
 
             return {
                 allIds: newAllIds,
