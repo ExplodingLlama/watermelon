@@ -26,7 +26,8 @@ const photos = (state = {byId: {}, allIds: []}, action) => {
             }
         case 'DELETE_PHOTO':
             var newAllIds = state.allIds.filter( id => id != action.photoId )
-            var newById = state.byId.filter( pht => pht.id != action.photoId )
+            var newById = {...state.byId};
+            newById[action.photoId] = undefined;
 
             return {
                 allIds: newAllIds,

@@ -13,6 +13,7 @@ const MainMode = React.createClass({
             var photoId = album.photos[i];
             photos.push(this.props.photos.byId[photoId]);
         }
+        return photos;
     },
 
     getAlbumArray(albums) {

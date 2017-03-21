@@ -19,6 +19,9 @@ const AlbumMode = React.createClass({
         if(!this.props.album) return <div></div>
         return(
           <div className={styles.photoalbum}>
+              <a onClick={this.props.backToMainMode} className={styles.backbutton}>
+                  Back to Albums
+              </a>
               <div className={styles.header}>
                   {this.props.album.name}
                   {(()=>{

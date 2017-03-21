@@ -13,7 +13,7 @@ const getCurrentPhotoData = (state) => {
     var photos = [];
 
     for( let photo of Object.values(state.photos.byId) ) {
-        if(photoIds.indexOf(photo.id) > -1){
+        if(photo && photo.id && photoIds.indexOf(photo.id) > -1){
             photos.push(photo);
         }
     }
